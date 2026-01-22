@@ -1,0 +1,138 @@
+table TablaAll
+	lineageTag: 6278b72c-8492-46f1-8fc2-90a10cb91249
+
+	column matricula_funcionario
+		lineageTag: 6f7ac207-0b10-4576-8677-6fa105fcc855
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[matricula_funcionario]
+
+		annotation SummarizationSetBy = Automatic
+
+	column codigo_tienda
+		lineageTag: c032ff8b-e6c7-41da-ad93-48a8782b7810
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[codigo_tienda]
+
+		annotation SummarizationSetBy = Automatic
+
+	column codigo_producto
+		lineageTag: 054ad6d2-07e0-4704-a4b5-64fa7bcca8c6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[codigo_producto]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'precio de coste'
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 0c95dcd2-a6ed-4bb7-8288-cd111ec9dae3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVentas[precio de coste]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	column valor_unitario
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 41d1132f-6454-41aa-9a9b-55edb9a96c88
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVentas[valor_unitario]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	column Cantidad
+		formatString: 0
+		lineageTag: ac9358dc-55c6-4e48-929d-0e242c8d0390
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVentas[Cantidad]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_ventas
+		formatString: General Date
+		lineageTag: 8a57e2d4-6c5e-460b-bed0-e90b102b698d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[DT_ventas]
+
+		variation Variación
+			isDefault
+			relationship: 44342160-e643-4467-a92e-7587cc1b3859
+			defaultHierarchy: LocalDateTable_a82d132c-9b68-489f-8349-f1a874bb8fa9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora_ventas
+		formatString: General Date
+		lineageTag: fb178384-e213-46ff-9654-e28177e36466
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[Hora_ventas]
+
+		variation Variación
+			isDefault
+			relationship: 06fc22b5-eb8b-43a6-aa89-ae95363eeaee
+			defaultHierarchy: LocalDateTable_351df263-0a29-4cf6-abcc-41973b9cbff5.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_entregas
+		formatString: General Date
+		lineageTag: b51b2c91-7ff0-49fd-9296-0d39d27c9bd5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[DT_entregas]
+
+		variation Variación
+			isDefault
+			relationship: 35948f57-cb90-47f2-ab3c-155ce1840113
+			defaultHierarchy: LocalDateTable_bab90bd6-5947-42f0-b96f-323d514bc0e2.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora_entregas
+		formatString: General Date
+		lineageTag: cdd786c0-b938-4126-b5f6-8d671e250205
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVentas[Hora_entregas]
+
+		variation Variación
+			isDefault
+			relationship: 2b69cf24-e358-4267-b5a0-2b3e1fed5cea
+			defaultHierarchy: LocalDateTable_4b2fb220-05bc-4e37-8a34-6ee3ba4bd70a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora_intventas
+		formatString: 0
+		lineageTag: 2f8a9a22-b6d7-4093-a292-36876ce13578
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVentas[Hora_intventas]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora_intentregas
+		formatString: 0
+		lineageTag: 03aec2e7-aa4a-45a8-9607-afcc86fc254a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: fVentas[Hora_intentregas]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TablaAll = calculated
+		mode: import
+		source = ALL(fVentas)
+
+	annotation PBI_Id = 97f250040b38436ba49427eb5bfb73fd
+

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "8b302b0ad0422a0b8569",
+  "displayName": "Metas",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'TemplateFundDax2-.svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "TemplateFundDax2-7870755435409328.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Normal'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "8016cb0f5e0b62df9af1",
+      "target": "b85a22c094667d7591d3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "1f11aaa73c81df6dd9aa",
+      "target": "b85a22c094667d7591d3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a07ba73543b9327fe86e",
+      "target": "4d4a4e6dca4f8dba9c48",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "a07ba73543b9327fe86e",
+      "target": "d181c7ce0bf88199de6c",
+      "type": "DataFilter"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+table dProductos
+	lineageTag: c5e62175-8c52-4f95-a6f8-5b7c4275887e
+
+	column codigo_producto
+		dataType: string
+		lineageTag: a9ee151a-91aa-4c05-b17c-a281e400f0be
+		summarizeBy: none
+		sourceColumn: codigo_producto
+
+		annotation SummarizationSetBy = Automatic
+
+	column descripcion_producto
+		dataType: string
+		lineageTag: a8a1faa6-cdd4-45b1-9a11-13b3c006d0e7
+		summarizeBy: none
+		sourceColumn: descripcion_producto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: b4828313-0e45-45ab-af5a-92a2f4a19d9f
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dProductos = m
+		mode: import
+		queryGroup: 'Modelo de Datos'
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\LENOVO\OneDrive\Documentos\Cursos Rubis\Rubis Master PBi\NIVEL 2 Fund_DAX\BC2_FDAX_POWERBI\Fundamentos de DAX__\BD\Base de datos.xlsx"), null, true),
+				    dProductos_Sheet = Origen{[Item="dProductos",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dProductos_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"codigo_producto", Int64.Type}, {"descripcion_producto", type text}, {"Categoria", type text}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([codigo_producto] <> null)),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas filtradas",{{"codigo_producto", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

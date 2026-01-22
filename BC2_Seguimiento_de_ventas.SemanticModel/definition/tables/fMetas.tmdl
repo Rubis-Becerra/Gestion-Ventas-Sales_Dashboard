@@ -1,0 +1,55 @@
+table fMetas
+	lineageTag: 6f1275d8-8ef0-4db1-8f9e-ebf3d8bc18e7
+
+	column Cod_tienda
+		dataType: string
+		lineageTag: b52426aa-731a-456d-b136-5f41b4b0ade7
+		summarizeBy: none
+		sourceColumn: Cod_tienda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 39235fe0-8aaf-459e-89ba-3b6bdb1c9a08
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Valor_meta
+		dataType: decimal
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 3029212e-7f69-4a4b-ad05-6b0291cf77ad
+		summarizeBy: sum
+		sourceColumn: Valor_meta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	partition fMetas = m
+		mode: import
+		queryGroup: 'Modelo de Datos'
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\LENOVO\OneDrive\Documentos\Cursos Rubis\Rubis Master PBi\NIVEL 2 Fund_DAX\BC2_FDAX_POWERBI\Fundamentos de DAX__\BD\Base de datos.xlsx"), null, true),
+				    Metas_Sheet = Origen{[Item="Metas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Metas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Meta de Faturación", type text}, {"Column2", type any}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type any}, {"Column9", type any}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}, {"Column27", type any}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([Meta de Faturación] <> null and [Meta de Faturación] <> "Total")),
+				    #"Encabezados promovidos1" = Table.PromoteHeaders(#"Filas filtradas", [PromoteAllScalars=true]),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Encabezados promovidos1",{"Presupuesto", "01/01/2023", "01/02/2023", "01/03/2023", "01/04/2023", "01/05/2023", "01/06/2023", "01/07/2023", "01/08/2023", "01/09/2023", "01/10/2023", "01/11/2023", "01/12/2023", "01/01/2024", "01/02/2024", "01/03/2024", "01/04/2024", "01/05/2024", "01/06/2024", "01/07/2024", "01/08/2024", "01/09/2024", "01/10/2024", "01/11/2024", "01/12/2024"}),
+				    #"Otras columnas con anulación de dinamización" = Table.UnpivotOtherColumns(#"Otras columnas quitadas", {"Presupuesto"}, "Atributo", "Valor"),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Otras columnas con anulación de dinamización",{{"Presupuesto", "Cod_tienda"}, {"Atributo", "Fecha"}, {"Valor", "Valor_meta"}}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"Valor_meta", Currency.Type}, {"Fecha", type date}})
+				in
+				    #"Tipo cambiado2"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

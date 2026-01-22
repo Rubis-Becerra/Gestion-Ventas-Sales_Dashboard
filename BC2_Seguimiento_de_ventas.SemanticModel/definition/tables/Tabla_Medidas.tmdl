@@ -1,0 +1,297 @@
+table Tabla_Medidas
+	lineageTag: 5bbe592e-4ac8-4bca-aa6c-965d7dfa62ee
+
+	measure Facturación = ```
+			
+			                SUMX(
+			                    fVentas,
+			                    fVentas[valor_unitario]*fVentas[Cantidad]
+			                )
+			```
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: ee1d310a-ea40-4266-bded-0f165706f27c
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Meta = SUM(fMetas[Valor_meta])
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 652233ef-ad45-48d7-86e6-96052fbc8e90
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'Dif (Real-Meta)' = [Facturación]-[Meta]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: c2bcb7f9-4b78-4c65-aff9-26f5abf36b7c
+
+	measure %Meta = ```
+			
+			        DIVIDE(
+			            [Dif (Real-Meta)],
+			            [Meta]
+			        )
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fab7078f-fe3d-4ce4-851f-051b0a1de1bc
+
+	measure Qtd_Pedidos = COUNTROWS(fVentas)
+		formatString: 0
+		lineageTag: 30c393e4-a373-4aa3-b974-b83248dd4286
+
+	measure Ticket_medio = ```
+			
+			                AVERAGEX(
+			                    fVentas,
+			                    fVentas[valor_unitario]*fVentas[Cantidad]
+			                )
+			```
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 500aebe4-76b3-42c5-b97f-5192110bc004
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Media_salario = ```
+			
+			                AVERAGE(dFuncionario[salario_mensual])
+			```
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 459e9b91-2474-4fdb-8e3a-45926b8bd05b
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Productos_Distintos = ```
+			
+			                        DISTINCTCOUNT(fVentas[codigo_producto])
+			```
+		formatString: 0
+		lineageTag: 69f92fe4-735c-4458-ab51-937bcc15aace
+
+	measure Total_Funcionarios = COUNT(dFuncionario[matricula_funcionario])
+		formatString: 0
+		lineageTag: f53e9609-89d4-4790-a246-68c02c5364d8
+
+	measure Qtd_Productomayor2 = ```
+			
+			                    COUNTROWS(
+			                        FILTER(
+			                            fVentas,
+			                            fVentas[Cantidad]>=3
+			                        ))
+			```
+		formatString: 0
+		lineageTag: 9e6256a0-4555-40c7-9b5f-f82a7e97c481
+
+	measure Fact_tMG = ```
+			
+			               CALCULATE(
+			                [Facturación],
+			                dTienda[nombre_tienda]="Sucursal MG",
+			                fVentas[Cantidad]=1)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 8ef31be0-689b-4c55-81ae-0a74d438d802
+
+	measure Fact_Mayor2P = ```
+			
+			               CALCULATE(
+			                [Facturación],
+			                fVentas[Cantidad]>2)
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: c8ed6c88-e466-4b9d-bdde-14b51b48a76e
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Fact_2tiendas = ```
+			
+			               CALCULATE(
+			                [Facturación],
+			                dTienda[nombre_tienda] IN{"Sucursal ES","Sucursal MG"}
+			            )
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: a0102f3b-1895-4f8c-aecd-0f907ee60701
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Fact_TTienda = ```
+			
+			                    CALCULATE(
+			                        [Facturación],
+			                        ALL(dTienda[nombre_tienda])
+			                    )
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 7f1ced70-b12e-4a1d-87c3-202824a3881c
+
+	measure '% Facturacion' =
+			
+			VAR V_Facturacion = [Facturación]
+			VAR V_FacturacionALL = CALCULATE([Facturación],ALL(dTienda[nombre_tienda]))
+			VAR V_Resultado = DIVIDE(V_Facturacion,V_FacturacionALL)
+			RETURN V_Resultado
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: edb2a241-2c15-42ac-8fd3-eecb5d8520e0
+
+	measure Facturacion_Total = ```
+			
+			                    CALCULATE(
+			                        [Facturación],
+			                        ALL(fVentas)
+			                    )
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 510a7bb9-c585-4b25-b063-817c4cfd20b2
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Facturacion_ALLEXCEPT = ```
+			
+			                    CALCULATE(
+			                        [Facturación],
+			                        ALLEXCEPT(fVentas,dCalendario[Año])
+			                    )
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: e4b5fac8-6670-4bb5-9ac0-c423769307cf
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Qtd_Entregas = ```
+			
+			                CALCULATE(
+			                    [Qtd_Pedidos],
+			                    USERELATIONSHIP(fVentas[DT_entregas],dCalendario[Date])
+			                )
+			```
+		formatString: 0
+		lineageTag: 2584ef00-a4a6-4cb3-9f1c-366d849ec13a
+
+	measure Facturacion_Prod = ```
+			
+			                    CALCULATE([Facturación],
+			                        FILTER(
+			                            dProductos,
+			                            [Qtd_Pedidos]>5)
+			                    )
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 5ade5fb8-1401-419a-b8c0-7972f120f358
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure FacturaciónYTD = ```
+			
+			                CALCULATE(
+			                    [Facturación],
+			                    DATESYTD(dCalendario[Date])
+			                )
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: f5930c4b-fb2b-4ca5-a72c-00771a1a5951
+
+	measure Facturación_LY = ```
+			
+			                CALCULATE(
+			                    [Facturación],
+			                    SAMEPERIODLASTYEAR(dCalendario[Date])
+			                )
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 1e577775-1862-4de2-bca9-cf9a309946dd
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure 'FcYactual vs FcYanterior' = ```
+			
+			                            [Facturación]-[Facturación_LY]
+			```
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: a3ed9c30-b4ee-4a6f-80cf-6a0592d3b3cc
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Tiempo_medioentrega(hrs) = ```
+			
+			                    AVERAGEX(
+			                        fVentas,
+			                        DATEDIFF(
+			                            fVentas[DT_ventas]+fVentas[Hora_ventas],
+			                            fVentas[DT_entregas]+fVentas[Hora_entregas],
+			                            MINUTE
+			                        )/60
+			                    )
+			```
+		lineageTag: 7c2e1657-416a-45a1-9f34-d5f67db7a479
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Tiempo_entrega(hh:mm:ss) = ```
+			
+			                            VAR V_Tiempototal = [Tiempo_medioentrega(hrs)]
+			                            VAR V_Hora = INT(V_Tiempototal)
+			                            VAR V_Minutosdecimales = (V_Tiempototal-V_Hora)*60
+			                            VAR V_Minutos = INT(V_Minutosdecimales)
+			                            VAR V_Segundos = ROUND((V_Minutosdecimales-V_Minutos)*60,0)
+			                            VAR V_Horaformato = FORMAT(V_Hora,"00")
+			                            VAR V_Minutosformato = FORMAT(V_Minutos,"00")
+			                            VAR V_Segundosformato = FORMAT(V_Segundos,"00")
+			                        RETURN CONVERT(V_Horaformato&V_Minutosformato&V_Segundosformato,INTEGER)
+			```
+		formatString: 00:00:00
+		lineageTag: 3d2abed9-16cc-4df7-bedc-2a0b750b116e
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure Meta_YTD = ```
+			
+			                CALCULATE(
+			                    [Meta],
+			                    DATESYTD(dCalendario[Date])
+			                )
+			```
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 770647eb-9a6f-44a1-ba93-89eb3e5e46cd
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-ES"}
+
+	measure Ganancia = ```
+			
+			                SUMX(
+			                    fVentas,
+			                    ((fVentas[valor_unitario]-fVentas[precio de coste])*fVentas[Cantidad])
+			                )
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: d23d0001-dd81-4fcf-9bd2-48a51ea2b57f
+
+	measure Margen_Ganancia = ```
+			
+			                DIVIDE(
+			                    [Ganancia],[Facturación]
+			                )
+			```
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: b12bcd7e-61ee-43aa-8edb-50a091f33f64
+
+	measure Ganancia_LY = ```
+			
+			                CALCULATE(
+			                    [Ganancia],
+			                    SAMEPERIODLASTYEAR(dCalendario[Date])
+			                )
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b7dae630-1e5c-4e9f-9785-2579c3651733
+
+	partition Tabla_Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

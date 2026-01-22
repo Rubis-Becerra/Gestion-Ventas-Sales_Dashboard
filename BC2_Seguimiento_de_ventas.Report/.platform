@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "BC2_Seguimiento_de_ventas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "955fd44d-c9db-4596-a6b1-1a8353babdc5"
+  }
+}

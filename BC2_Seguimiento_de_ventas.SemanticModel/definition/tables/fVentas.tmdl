@@ -1,0 +1,144 @@
+table fVentas
+	lineageTag: 0c3cedb6-4412-4326-bb70-3a5ffe13b28c
+
+	column matricula_funcionario
+		dataType: string
+		lineageTag: 076932e9-bcfc-41f0-9a8d-75c23d34df34
+		summarizeBy: none
+		sourceColumn: matricula_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column codigo_tienda
+		dataType: string
+		lineageTag: 307cb827-0c43-47f5-98e0-dde5358cf106
+		summarizeBy: none
+		sourceColumn: codigo_tienda
+
+		annotation SummarizationSetBy = Automatic
+
+	column codigo_producto
+		dataType: string
+		lineageTag: 5072c60b-c320-430c-a710-834644fff86c
+		summarizeBy: none
+		sourceColumn: codigo_producto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'precio de coste'
+		dataType: decimal
+		lineageTag: b7cdce4d-5a47-4dcc-86c7-8845da107dfc
+		summarizeBy: sum
+		sourceColumn: precio de coste
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valor_unitario
+		dataType: decimal
+		lineageTag: 6e931453-9501-43ea-bc36-eaa2af00ab7f
+		summarizeBy: sum
+		sourceColumn: valor_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: d82399b3-95e9-436d-93c4-c5e4981ca185
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_ventas
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7f154e87-74aa-43d0-9661-aa9b38bdc704
+		summarizeBy: none
+		sourceColumn: DT_ventas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Hora_ventas
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 177baeb7-2308-4792-a51b-6f52de4a712b
+		summarizeBy: none
+		sourceColumn: Hora_ventas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column DT_entregas
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7868b096-6a71-478c-ad82-ac29d8f01b25
+		summarizeBy: none
+		sourceColumn: DT_entregas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Hora_entregas
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 31292486-2313-4954-974d-9c334717372a
+		summarizeBy: none
+		sourceColumn: Hora_entregas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Hora_intventas
+		dataType: int64
+		formatString: 0
+		lineageTag: b44336b0-6af2-48d9-a214-0ce5b3c26c10
+		summarizeBy: sum
+		sourceColumn: Hora_intventas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hora_intentregas
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f4d7197-abf6-4911-9053-cf164c0633d7
+		summarizeBy: sum
+		sourceColumn: Hora_intentregas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVentas = m
+		mode: import
+		queryGroup: 'Modelo de Datos'
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\LENOVO\OneDrive\Documentos\Cursos Rubis\Rubis Master PBi\NIVEL 2 Fund_DAX\BC2_FDAX_POWERBI\Fundamentos de DAX__\BD\Base de datos.xlsx"), null, true),
+				    fVentas_Sheet = Origen{[Item="fVentas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(fVentas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"matricula_funcionario", Int64.Type}, {"Nombre Funcionario", type text}, {"Cargo", type text}, {"codigo_tienda", type text}, {"codigo_producto", Int64.Type}, {"Categoria", type text}, {"precio de coste", type number}, {"valor_unitario", type number}, {"Cantidad", Int64.Type}, {"Fecha_venta", type datetime}, {"Fecha_entrega", type datetime}, {"Fecha_venta2", type datetime}, {"Fecha_entrega2", type datetime}}),
+				    #"Dividir columna por delimitador" = Table.SplitColumn(Table.TransformColumnTypes(#"Tipo cambiado", {{"Fecha_venta2", type text}}, "es-MX"), "Fecha_venta2", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, false), {"Fecha_venta.1", "Fecha_venta.2"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"Fecha_venta.1", type date}, {"Fecha_venta.2", type time}}),
+				    #"Dividir columna por delimitador1" = Table.SplitColumn(Table.TransformColumnTypes(#"Tipo cambiado1", {{"Fecha_entrega2", type text}}, "es-MX"), "Fecha_entrega2", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, false), {"Fecha_entrega.1", "Fecha_entrega.2"}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Dividir columna por delimitador1",{{"Fecha_entrega.1", type date}, {"Fecha_entrega.2", type time}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado2",{{"Fecha_venta.1", "DT_ventas"}, {"Fecha_venta.2", "Hora_ventas"}, {"Fecha_entrega.1", "DT_entregas"}, {"Fecha_entrega.2", "Hora_entregas"}}),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Columnas con nombre cambiado",{"matricula_funcionario", "codigo_tienda", "codigo_producto", "precio de coste", "valor_unitario", "Cantidad", "DT_ventas", "Hora_ventas", "DT_entregas", "Hora_entregas"}),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Otras columnas quitadas",{{"matricula_funcionario", type text}, {"codigo_producto", type text}, {"precio de coste", Currency.Type}, {"valor_unitario", Currency.Type}}),
+				    #"Hora insertada" = Table.AddColumn(#"Tipo cambiado3", "Hora", each Time.Hour([Hora_ventas]), Int64.Type),
+				    #"Hora insertada1" = Table.AddColumn(#"Hora insertada", "Hora.1", each Time.Hour([Hora_entregas]), Int64.Type),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Hora insertada1",{{"Hora", "Hora_intventas"}, {"Hora.1", "Hora_intentregas"}})
+				in
+				    #"Columnas con nombre cambiado1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,37 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Modelo de Datos'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["dFuncionario","dProductos","dTienda","fVentas","fMetas","Tabla_Medidas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dFuncionario
+ref table DateTableTemplate_83b28f68-942f-488f-90fb-b2f9ee90b33f
+ref table LocalDateTable_f3920fb7-2c66-420b-8c6d-5652623e82ff
+ref table LocalDateTable_283026a6-21af-475f-9bc8-06f5b67e7742
+ref table LocalDateTable_05f92cfe-b05a-4948-bb4d-43217b22391d
+ref table dProductos
+ref table dTienda
+ref table fVentas
+ref table fMetas
+ref table Tabla_Medidas
+ref table dCalendario
+ref table TablaAll
+ref table LocalDateTable_a82d132c-9b68-489f-8349-f1a874bb8fa9
+ref table LocalDateTable_351df263-0a29-4cf6-abcc-41973b9cbff5
+ref table LocalDateTable_bab90bd6-5947-42f0-b96f-323d514bc0e2
+ref table LocalDateTable_4b2fb220-05bc-4e37-8a34-6ee3ba4bd70a
+
+ref cultureInfo es-MX
+

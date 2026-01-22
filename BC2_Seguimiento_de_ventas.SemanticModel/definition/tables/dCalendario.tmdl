@@ -1,0 +1,86 @@
+table dCalendario
+	lineageTag: 8d075629-2415-41ad-ba93-1d2aaba1bd09
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: dd/mm/yyyy
+		lineageTag: 05626804-a223-4c95-b2fb-dcb17b6262e6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Mes_num = MONTH(dCalendario[Date])
+		formatString: 0
+		lineageTag: 0354aa68-8b4b-489b-b683-db269dbb9171
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column N_mes = FORMAT(dCalendario[Date],"mmm")
+		lineageTag: 9b575a8e-9efa-4c3e-bb76-e18fad544ec0
+		summarizeBy: none
+		sortByColumn: Mes_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año = YEAR(dCalendario[Date])
+		formatString: 0
+		lineageTag: 5ebbb658-b35a-46f1-950b-dad3ded9d15c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sem_num = "S" & WEEKNUM(dCalendario[Date],1)
+		lineageTag: 89d229ec-d4f1-4b67-841a-dcb0b6a7fee4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Num_semana_mes = INT( (DAY(dCalendario[Date]) - 1) / 7 ) + 1
+		dataType: int64
+		lineageTag: e9fab022-6f8d-467b-bf9f-bbbbf0697929
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dia_semana = FORMAT(dCalendario[Date],"ddd")
+		lineageTag: 1fc80451-e35c-4ae3-811f-363e9de15d1f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre = "T" & FORMAT(dCalendario[Date],"Q")
+		lineageTag: 898a7e50-5d07-4cd3-8855-fff0ecec84e3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes_año = EOMONTH(dCalendario[Date],0)
+		formatString: mmm yyyy
+		lineageTag: e5e35dfd-c230-449b-b0fe-7cc0ac0ba250
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	partition dCalendario = calculated
+		mode: import
+		source = ```
+				
+				                CALENDAR(
+				                    DATE(YEAR(MIN(fVentas[DT_ventas])),1,1),
+				                    DATE(YEAR(MAX(fVentas[DT_entregas])),12,31)
+				                )
+				
+				```
+
+	annotation PBI_Id = 900f6747efe54aae919aa98fadc48b75
+

@@ -1,0 +1,185 @@
+table dFuncionario
+	lineageTag: 93579567-c4a6-419a-9266-ed20bd8ad5ce
+
+	column nombre_funcionario
+		dataType: string
+		lineageTag: eb683c33-7267-47f3-a793-867745f528e2
+		summarizeBy: none
+		sourceColumn: nombre_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column matricula_funcionario
+		dataType: string
+		lineageTag: 4161c63a-bc4f-43f6-bf3a-41145a6dd4b4
+		summarizeBy: none
+		sourceColumn: matricula_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column salario_mensual
+		dataType: decimal
+		formatString: 0
+		lineageTag: f5085980-397c-4b84-a85a-86ba387da8b7
+		summarizeBy: sum
+		sourceColumn: salario_mensual
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		dataType: string
+		lineageTag: 95359fa7-09cb-48d0-b8a6-c604d720fad8
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha_nacimiento
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 413c070f-8327-4abb-90dc-8a77d68aff1d
+		summarizeBy: none
+		sourceColumn: Fecha_nacimiento
+
+		variation Variación
+			isDefault
+			relationship: 4fecfbf5-03da-4222-991a-a87b178ebab9
+			defaultHierarchy: LocalDateTable_f3920fb7-2c66-420b-8c6d-5652623e82ff.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Sexo
+		dataType: string
+		lineageTag: 88afaa91-f06d-4a67-b8f1-d45232423867
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_civil
+		dataType: string
+		lineageTag: 5d547fbc-b29f-4c19-9f60-e3aacf5622f5
+		summarizeBy: none
+		sourceColumn: estado_civil
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha_contratacion
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1662f659-5ee3-4a9f-818a-c29763699614
+		summarizeBy: none
+		sourceColumn: Fecha_contratacion
+
+		variation Variación
+			isDefault
+			relationship: 3eeb5441-1a02-45d4-b4e9-024ca0763c5d
+			defaultHierarchy: LocalDateTable_283026a6-21af-475f-9bc8-06f5b67e7742.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Departamento
+		dataType: string
+		lineageTag: f842bf56-79b1-47ae-ae90-656e607486b2
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column fuente_reclutamiento
+		dataType: string
+		lineageTag: 20b7327c-737b-4f05-ae22-c6a08fba31a0
+		summarizeBy: none
+		sourceColumn: fuente_reclutamiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column performance
+		dataType: string
+		lineageTag: b0db24fb-81c8-4953-a4eb-d840ce511be8
+		summarizeBy: none
+		sourceColumn: performance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Investigación_participación
+		dataType: double
+		lineageTag: ae8103f6-d684-4e96-ad40-d372ce35f4ba
+		summarizeBy: sum
+		sourceColumn: Investigación_participación
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indice_satisfaccion
+		dataType: double
+		lineageTag: f741ffa3-6346-4057-a538-68e6d4913f23
+		summarizeBy: sum
+		sourceColumn: indice_satisfaccion
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ultima_actualizacion_performance
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d6822765-5f29-4d33-9578-256dbddaa8b6
+		summarizeBy: none
+		sourceColumn: ultima_actualizacion_performance
+
+		variation Variación
+			isDefault
+			relationship: 78ffea90-3ae1-4216-9334-cd7c6082e07d
+			defaultHierarchy: LocalDateTable_05f92cfe-b05a-4948-bb4d-43217b22391d.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Class = IF([Facturación]>=600000,"Top","No Clasifica")
+		lineageTag: c813810a-3cb5-440a-a7bc-2c30a02c1524
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Satisfaccion = ```
+			
+			                SWITCH(
+			                    TRUE(),
+			                    dFuncionario[indice_satisfaccion]<=2 && dFuncionario[performance] = "Por debajo de lo esperado","Entrar en contacto",
+			                    dFuncionario[indice_satisfaccion]<=2,"Atención",
+			                    dFuncionario[indice_satisfaccion]<4,"Ok",
+			                    "Satisfecho"
+			                )
+			```
+		lineageTag: d0edeac7-0803-4ab6-a479-360fbff74d34
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dFuncionario = m
+		mode: import
+		queryGroup: 'Modelo de Datos'
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\LENOVO\OneDrive\Documentos\C_Rubis\Master PBi\Repositorio Power Bi\Power Bi Seguimiento de Ventas\Base de datos.xlsx"), null, true),
+				    dFuncionario_Sheet = Origen{[Item="dFuncionario",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dFuncionario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"nombre_funcionario", type text}, {"matricula_funcionario", Int64.Type}, {"PerfScoreID", Int64.Type}, {"salario_mensual", Int64.Type}, {"Cargo", type text}, {"Fecha_nacimiento", type date}, {"Sexo", type text}, {"estado_civil", type text}, {"Fecha_contratacion", type date}, {"Fecha_despido", type text}, {"motivo_salida", type text}, {"Estado_funcionario", type text}, {"Departamento", type text}, {"fuente_reclutamiento", type text}, {"performance", type text}, {"Investigación_participación", type number}, {"indice_satisfaccion", type number}, {"ultima_actualizacion_performance", type date}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([nombre_funcionario] <> null)),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Filas filtradas",{"nombre_funcionario", "matricula_funcionario", "salario_mensual", "Cargo", "Fecha_nacimiento", "Sexo", "estado_civil", "Fecha_contratacion", "Departamento", "fuente_reclutamiento", "performance", "Investigación_participación", "indice_satisfaccion", "ultima_actualizacion_performance"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Otras columnas quitadas",{{"matricula_funcionario", type text}, {"salario_mensual", Currency.Type}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado1",#date(2022, 12, 31),#date(2024, 12, 31),Replacer.ReplaceValue,{"ultima_actualizacion_performance"})
+				in
+				    #"Valor reemplazado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

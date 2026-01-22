@@ -1,0 +1,64 @@
+relationship 4fecfbf5-03da-4222-991a-a87b178ebab9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dFuncionario.Fecha_nacimiento
+	toColumn: LocalDateTable_f3920fb7-2c66-420b-8c6d-5652623e82ff.Date
+
+relationship 3eeb5441-1a02-45d4-b4e9-024ca0763c5d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dFuncionario.Fecha_contratacion
+	toColumn: LocalDateTable_283026a6-21af-475f-9bc8-06f5b67e7742.Date
+
+relationship 78ffea90-3ae1-4216-9334-cd7c6082e07d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dFuncionario.ultima_actualizacion_performance
+	toColumn: LocalDateTable_05f92cfe-b05a-4948-bb4d-43217b22391d.Date
+
+relationship AutoDetected_fe55b898-4060-4e8a-b17a-5c7c1cad10d3
+	fromColumn: fVentas.codigo_producto
+	toColumn: dProductos.codigo_producto
+
+relationship AutoDetected_823878b2-002c-4c9e-bc73-f3055ec4dac6
+	fromColumn: fVentas.codigo_tienda
+	toColumn: dTienda.codigo_tienda
+
+relationship a37b49c7-72f9-4636-11da-3b09103226d6
+	fromColumn: fVentas.matricula_funcionario
+	toColumn: dFuncionario.matricula_funcionario
+
+relationship a9f045e0-53cf-51e8-d01b-9081ab79412d
+	fromColumn: fMetas.Cod_tienda
+	toColumn: dTienda.codigo_tienda
+
+relationship 6edb7e1c-2575-ebdc-98b6-ae204aac6daa
+	fromColumn: fVentas.DT_ventas
+	toColumn: dCalendario.Date
+
+relationship f5e96158-3af5-9862-0595-ed42a4d65087
+	fromColumn: fMetas.Fecha
+	toColumn: dCalendario.Date
+
+relationship c270e332-3b56-5dea-e4d0-583c1020497d
+	isActive: false
+	fromColumn: fVentas.DT_entregas
+	toColumn: dCalendario.Date
+
+relationship 44342160-e643-4467-a92e-7587cc1b3859
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TablaAll.DT_ventas
+	toColumn: LocalDateTable_a82d132c-9b68-489f-8349-f1a874bb8fa9.Date
+
+relationship 06fc22b5-eb8b-43a6-aa89-ae95363eeaee
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TablaAll.Hora_ventas
+	toColumn: LocalDateTable_351df263-0a29-4cf6-abcc-41973b9cbff5.Date
+
+relationship 35948f57-cb90-47f2-ab3c-155ce1840113
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TablaAll.DT_entregas
+	toColumn: LocalDateTable_bab90bd6-5947-42f0-b96f-323d514bc0e2.Date
+
+relationship 2b69cf24-e358-4267-b5a0-2b3e1fed5cea
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TablaAll.Hora_entregas
+	toColumn: LocalDateTable_4b2fb220-05bc-4e37-8a34-6ee3ba4bd70a.Date
+

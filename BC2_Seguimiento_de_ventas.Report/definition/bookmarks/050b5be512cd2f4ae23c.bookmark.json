@@ -1,0 +1,760 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.0.0/schema.json",
+  "displayName": "Ganancia",
+  "name": "050b5be512cd2f4ae23c",
+  "options": {
+    "targetVisualNames": []
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "3e6db367f165d7faeae4",
+    "sections": {
+      "3e6db367f165d7faeae4": {
+        "visualContainers": {
+          "d2067a35e8bcdf634e8b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "3a091402e507ca1db2db",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5c24e3a3b38e25a27e5a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Facturación"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "68668c227a80940ed672",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Ticket_medio"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "24268d476c05ab2ae08b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Qtd_Pedidos"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ab477e29c83b43ec3d07",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Qtd_Entregas"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "fb74e9e9c0b111c370b4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Tiempo_entrega(hh:mm:ss)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "00b8454f49298d4d80ee": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f43e986a820bba08cca0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Qtd_Pedidos"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7568842f131006a0e3c9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fVentas"
+                        }
+                      },
+                      "Property": "Hora_intventas"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fVentas"
+                        }
+                      },
+                      "Property": "Hora_intventas"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fVentas"
+                        }
+                      },
+                      "Property": "Hora_intventas"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "24106f3c3577c9731651": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "952732878c5e1dbc4942",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "Año"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "dCalendario",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "d"
+                                            }
+                                          },
+                                          "Property": "Año"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2024L"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "Año"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "e70ea8797f8659399749": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "56244db1c008dbc7224a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "f429b8d4cd7df140f64c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "aa34676029e6a70dd218",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5badf1b7854e05ce0438",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Qtd_Pedidos"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ddb8484ad89790180635",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Qtd_Entregas"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6ddda7df78ed29a504f7": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "266ae27700a8d55c8b35",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "17b05d04330086d440ca",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Tiempo_medioentrega(hrs)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredBarChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Tiempo_medioentrega(hrs)"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dTienda"
+                        }
+                      },
+                      "Property": "nombre_tienda"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6c0a7f0d6bddc6996c4c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0f1bc9f1006100008cda",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dProductos"
+                        }
+                      },
+                      "Property": "Categoria"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c089eeac5e1b67b448ea",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Facturación"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1a3bf8e9492b64d25bd4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Margen_Ganancia"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineClusteredColumnComboChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Facturación"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dProductos"
+                        }
+                      },
+                      "Property": "Categoria"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "f34b22b13884feb15047": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "eafbc8b0e96b62668219",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Facturación"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c52ea161e8a666664c89",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3d5a44e072ab3cb38a08",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Facturación_LY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "2f39c4162a46974ed275": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fba93319699b5c52b214",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1493f70007180d027a63",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Ganancia"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3a50b736b0d93600160e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Tabla_Medidas"
+                        }
+                      },
+                      "Property": "Ganancia_LY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendario"
+                        }
+                      },
+                      "Property": "N_mes"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "925a48fb36dadec14af6": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "727934a3e1d9e232d0b3": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c0acea3c07f8bfbf2e16": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
