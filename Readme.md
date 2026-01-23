@@ -44,16 +44,14 @@ El análisis se basa en datos consolidados de **2023 y 2024**, permitiendo ident
 ![Menu](Dash_views/Dash_Menu1.jpg)
 
 ### Metas de Ventas 2023 - 2024
-<p align="center">
-  <img src="Dash_views/Dash2_Metas2023.jpg" width="48%" />
-  <img src="Dash_views/Dash2_Metas2024.jpg" width="48%" />
-</p>
+![Metas de Ventas 2023](Dash_views/Dash2_Metas2023.jpg)
+
+![Metas de Ventas 2024](Dash_views/Dash2_Metas2024.jpg)
 
 ### Visión General de Ventas (Ganancias) 2023 – 2024
-<p align="center">
-  <img src="Dash_views/Dash3_Ventas_ganancias2023.jpg" width="48%" />
-  <img src="Dash_views/Dash3_Ventas_ganancias2024.jpg" width="48%" />
-</p>
+![Visión General 2023](Dash_views/Dash3_Ventas_ganancias2023.jpg)
+
+![Visión General 2024](Dash_views/Dash3_Ventas_ganancias2024.jpg)
 
 ---
 
