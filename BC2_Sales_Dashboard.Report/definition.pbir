@@ -3,7 +3,7 @@
   "version": "4.0",
   "datasetReference": {
     "byPath": {
-      "path": "../BC2_Seguimiento_de_ventas.SemanticModel"
+      "path": "../BC2_Sales_Dashboard.SemanticModel"
     }
   }
 }

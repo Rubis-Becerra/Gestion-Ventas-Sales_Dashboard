@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'TemplateFundDax2-.svg'"
+                    "Value": "'TemplateFundDax2-2.svg'"
                   }
                 }
               },
@@ -23,7 +23,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "TemplateFundDax2-7870755435409328.svg"
+                    "ItemName": "TemplateFundDax2-208254339469698435.svg"
                   }
                 }
               },

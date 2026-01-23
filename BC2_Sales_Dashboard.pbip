@@ -4,7 +4,7 @@
   "artifacts": [
     {
       "report": {
-        "path": "BC2_Seguimiento_de_ventas.Report"
+        "path": "BC2_Sales_Dashboard.Report"
       }
     }
   ],
